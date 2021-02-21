@@ -13,6 +13,8 @@ type Client struct {
 	Avatar         string `json:"avatar" validate:"required"`
 	PhoneNumbers   string `json:"phone_numbers" validate:"required"`
 	PassportPhotos string `json:"passport_photos"`
+	CreatedAt      string `json:"created_at"`
+	UpdatedAt      string `json:"updated_at"`
 }
 
 //func (client *Client) MarshalJSON() ([]byte,error){

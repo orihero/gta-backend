@@ -20,7 +20,7 @@ func GetClients(page, pageSize int) *[]models.Client {
 	defer rows.Close()
 	for rows.Next() {
 		cl := models.Client{}
-		err = rows.Scan(&cl.ID, &cl.Firstname, &cl.Lastname, &cl.DateOfBirth, &cl.Avatar, &cl.PhoneNumbers, &cl.PassportPhotos)
+		err = rows.Scan(&cl.ID, &cl.Firstname, &cl.Lastname, &cl.DateOfBirth, &cl.Avatar, &cl.PhoneNumbers, &cl.PassportPhotos, &cl.CreatedAt, &cl.UpdatedAt)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -32,23 +32,6 @@ func GetClients(page, pageSize int) *[]models.Client {
 	}
 	return &clients
 }
-
-var js = `{
-    "firstname": "lol",
-    "lastname": "foo",
-    "date_of_birth": "10-12-2020",
-    "avatar": {
-        "path": "https://www.slashfilm.com/wp/wp-content/images/avatar-2-story.jpg"
-    },
-    "phone_numbers": [
-        {
-            "value": "+998932300500"
-        },
-        {
-            "value": "+998998970597"
-        }
-    ]
-}`
 
 func AddClient(client *models.Client) {
 	tx, err := DB.Begin()
@@ -70,3 +53,20 @@ func AddClient(client *models.Client) {
 func UpdateClient(client *models.Client) {
 
 }
+
+var js = `{
+    "firstname": "lol",
+    "lastname": "foo",
+    "date_of_birth": "10-12-2020",
+    "avatar": {
+        "path": "https://www.slashfilm.com/wp/wp-content/images/avatar-2-story.jpg"
+    },
+    "phone_numbers": [
+        {
+            "value": "+998932300500"
+        },
+        {
+            "value": "+998998970597"
+        }
+    ]
+}`

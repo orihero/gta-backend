@@ -1,13 +1,9 @@
 package models
 
-import (
-	"gorm.io/gorm"
-)
-
 type CarModel struct {
-	gorm.Model
-	BrandName string
-	Year string
-	CarID uint
+	Name     string   `json:"name"`
+	Url      string   `json:"url"`
+	FileName string   `json:"fileName"`
+	Models   []string `json:"models"`
+	Brand    string   `json:"brand"`
 }
-

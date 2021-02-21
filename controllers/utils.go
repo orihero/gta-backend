@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io"
 	"io/ioutil"
 	"log"
@@ -32,8 +33,11 @@ func MultipleFileUpload(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		// f is one of the files
-		var data []byte
-		f.Read(data)
+
+		data, err := ioutil.ReadAll(f)
+		if err != nil {
+			fmt.Println(err)
+		}
 		err = ioutil.WriteFile(fmt.Sprintf("./public/uploads/%s", fh.Filename), data, 0644)
 		if err != nil {
 			fmt.Println(err)
@@ -87,8 +91,8 @@ func DeleteFile(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetUploadedImages(w http.ResponseWriter, r *http.Request) {
-	//fileName := mux.Vars(r)["name"]
-	img, err := os.Open(fmt.Sprintf("./public/uploads/%s", "1.jpg"))
+	fileName := mux.Vars(r)["name"]
+	img, err := os.Open(fmt.Sprintf("./public/uploads/%s", fileName))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -97,10 +101,10 @@ func GetUploadedImages(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	data, err := ioutil.ReadFile(fmt.Sprintf("public/uploads/%s", "1.jpg"))
-	log.Println(data)
+	//data, err := ioutil.ReadFile(fmt.Sprintf("public/uploads/%s", "2.jpg"))
+	//log.Println(data)
 	//defer img.Close()
-	w.Header().Set("Content-Type", "image/jpeg")
+	w.Header().Set("Content-Type", "text")
 	io.Copy(w, img)
 }
 

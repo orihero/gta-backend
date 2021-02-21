@@ -48,6 +48,18 @@ var routes = Routes{
 		"/public/uploads/{name}",
 		controllers.GetUploadedImages,
 	},
+	Route{
+		"Cars",
+		"GET",
+		"/cars",
+		controllers.GetCars,
+	},
+	Route{
+		"New Client",
+		"POST",
+		"/cars",
+		controllers.NewCar,
+	},
 }
 
 func NewRouter() http.Handler {
